@@ -1,2 +1,1 @@
-export { default as OfferService } from './OfferService'
-export { default as FusionAuthService } from './FusionAuthService'
+export { default as SalesmanService } from './SalesmanService'

@@ -1,2 +1,2 @@
 // eslint-disable-next-line import/prefer-default-export
-export { default as OfferRepository } from './OfferRepository'
+export { default as SalesmanRepository } from './SalesmanRepository'
