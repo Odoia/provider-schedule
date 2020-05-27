@@ -6,10 +6,10 @@ import { Salesman } from '@/database/models'
 @JsonController('/v1/salesmen')
 export default class SalesmanController {
   @Post('/')
-  async create(@BodyParam('salesman', { required: true }) salesman: Salesman, @Res() res: Response) {
+  async create(
+    @BodyParam('salesman', { required: true }) salesman: Salesman,
+    @Res() res: Response
+  ) {
     return res.status(201).json(salesman)
   }
-
 }
-
-

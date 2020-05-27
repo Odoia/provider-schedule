@@ -1,9 +1,8 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export class CreateSalesman1590607627087 implements MigrationInterface {
-
+export default class CreateSalesman1590607627087 implements MigrationInterface {
   public async up(queryRunner: QueryRunner) {
-    await queryRunner.createTable( 
+    await queryRunner.createTable(
       new Table({
         name: 'salesmen',
         columns: [
@@ -39,13 +38,13 @@ export class CreateSalesman1590607627087 implements MigrationInterface {
             name: 'updated_at',
             type: 'timestamp',
             default: 'now()'
-          },
+          }
         ]
       })
     )
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-      await queryRunner.dropTable('salesmen')
+    await queryRunner.dropTable('salesmen')
   }
 }

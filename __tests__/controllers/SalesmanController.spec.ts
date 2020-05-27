@@ -1,6 +1,4 @@
 import { Application } from 'express'
-// import faker from 'faker'
-// import { OK, NOT_FOUND, CREATED, BAD_REQUEST, NO_CONTENT } from 'http-status-codes'
 import request from 'supertest'
 import { Connection } from 'typeorm'
 
@@ -24,24 +22,26 @@ describe('/api/v1/salesman', () => {
     describe('When use a valid salesman', () => {
       describe('When need create a new salesman -> POST', () => {
         it('should be create one salesman and status 201', async () => {
-          await request(app).post('/api/v1/salesmen')
-          .send({ 
-            name: 'salesman first',
-            email: `${Date.now()}@mail.com`,
-            phone: '123',
-            whatsapp: true
-          })
-          .then((result) => {
-            expect(result.status).toBe(201)
-            expect(result.body.name).toBe('salesman first')
-          })
+          const result = await request(app)
+            .post('/api/v1/salesmen')
+            .send({
+              salesman: {
+                name: 'salesman first',
+                email: `${Date.now()}@mail.com`,
+                phone: '123',
+                whatsapp: true
+              }
+            })
+
+          expect(result.status).toBe(201)
+          expect(result.body.name).toBe('salesman first')
         })
       })
 
       describe('When need list all salesman -> GET', () => {
         // it('should be list two salesman`s and status 200', async () => {
         //   await request(app).post('/api/v1/salesman')
-        //   .send({ 
+        //   .send({
         //     name: 'user account',
         //     email: `${Date.now()}@mail.com`,
         //     phone: '123',
@@ -54,21 +54,11 @@ describe('/api/v1/salesman', () => {
         // })
       })
 
-      describe('When need list one salesman by id -> GET /:id', () => {
+      describe('When need list one salesman by id -> GET /:id', () => {})
 
-      })
-
-
-      describe('When need update a salesman -> GET /:id', () => {
-
-      })
-
-
+      describe('When need update a salesman -> GET /:id', () => {})
     })
 
-    describe('When use a invalid salesman', () => {
-
-
-    })
+    describe('When use a invalid salesman', () => {})
   })
 })
