@@ -5,17 +5,17 @@ import BaseEntity from '@/database/models/BaseEntity'
 @Entity({ name: 'salesmen' })
 export default class Salesman extends BaseEntity<Salesman> {
   @PrimaryGeneratedColumn()
-  id?: number
+  id: number
 
   @Column()
-  name?: string
+  name: string
 
   @Column()
-  email?: string
+  email: string
 
   @Column()
-  phone?: string
+  phone: string
 
   @Column()
-  whatsapp?: boolean
+  whatsapp: boolean
 }

@@ -13,7 +13,7 @@ export const connectionOptions: ConnectionOptions = {
   database: `${envs.db.database}_${process.env.NODE_ENV}`,
   synchronize: false,
   logging: envs.db.logging,
-  entities: ['src/database/models/**/*.ts'],
+  entities: ['src/database/models/*.ts'],
   migrations: ['src/database/migrations/**/*.ts']
 }
 

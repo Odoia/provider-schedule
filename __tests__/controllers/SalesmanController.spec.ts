@@ -35,23 +35,28 @@ describe('/api/v1/salesman', () => {
 
           expect(result.status).toBe(201)
           expect(result.body.name).toBe('salesman first')
+          expect(result.body.id).not.toBe(null)
         })
       })
 
       describe('When need list all salesman -> GET', () => {
-        // it('should be list two salesman`s and status 200', async () => {
-        //   await request(app).post('/api/v1/salesman')
-        //   .send({
-        //     name: 'user account',
-        //     email: `${Date.now()}@mail.com`,
-        //     phone: '123',
-        //     whatsapp: true
-        //   })
-        //   .then((result) => {
-        //     expect(result.status).toBe(201)
-        //   })
-        //   await request(app).get('/api/v1/salesmen').expect(200)
-        // })
+        it('should be list two salesman`s and status 200', async () => {
+          await request(app)
+            .post('/api/v1/salesmen')
+            .send({
+              salesman: {
+                name: 'salesman first',
+                email: `${Date.now()}@mail.com`,
+                phone: '123',
+                whatsapp: true
+              }
+            })
+
+          const result = await request(app)
+            .get('/api/v1/salesmen')
+          expect(result.status).toBe(200)
+          // expect(result.body.name).toBe('salesman first')
+        })
       })
 
       describe('When need list one salesman by id -> GET /:id', () => {})
