@@ -42,7 +42,7 @@ export default class CreateSalesman1590607627087 implements MigrationInterface {
           {
             name: 'deleted_at',
             type: 'timestamp',
-            default: 'now()'
+            isNullable: true
           }
         ]
       })

@@ -36,11 +36,12 @@ describe('/api/v1/salesman', () => {
           expect(result.status).toBe(201)
           expect(result.body.name).toBe('salesman first')
           expect(result.body.id).not.toBe(null)
+          expect(result.body.deletedAt).toBe(null)
         })
       })
 
       describe('When need list all salesman -> GET', () => {
-        it('should be list two salesman`s and status 200', async () => {
+        it('should be list salesman`s and status 200', async () => {
           await request(app)
             .post('/api/v1/salesmen')
             .send({
@@ -55,11 +56,29 @@ describe('/api/v1/salesman', () => {
           const result = await request(app)
             .get('/api/v1/salesmen')
           expect(result.status).toBe(200)
-          // expect(result.body.name).toBe('salesman first')
+          expect(result.body.length).toBeGreaterThan(0)
         })
       })
 
-      describe('When need list one salesman by id -> GET /:id', () => {})
+      describe('When need list one salesman by id -> GET /:id', () => {
+        it('should be show salesman and status 200', async () => {
+          const post_result = await request(app)
+          .post('/api/v1/salesmen')
+          .send({
+            salesman: {
+              name: 'salesman test',
+              email: `${Date.now()}@mail.com`,
+              phone: '123',
+              whatsapp: true
+            }
+          })
+
+          const result = await request(app)
+          .get(`/api/v1/salesmen/${post_result.body.id}`)
+          expect(result.status).toBe(200)
+          expect(result.body.id).toBe(post_result.body.id)
+        })
+      })
 
       describe('When need update a salesman -> GET /:id', () => {})
     })

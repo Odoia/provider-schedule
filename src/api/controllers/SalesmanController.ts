@@ -27,8 +27,6 @@ export default class SalesmanController {
     @Res() res: Response
   ) {
     const result = await this.service.find()
-    console.log('------>')
-    console.log(result)
     return res.status(200).json(result)
   }
 
@@ -38,8 +36,6 @@ export default class SalesmanController {
     @Res() res: Response
   ) {
     const result = await this.service.findOne({ id })
-    console.log('------>')
-    console.log(result)
     return res.status(200).json(result)
   }
 
