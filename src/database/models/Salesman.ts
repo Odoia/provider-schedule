@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm'
 
+import { Provider } from '@/database/models'
 import BaseEntity from '@/database/models/BaseEntity'
 
 @Entity({ name: 'salesmen' })
@@ -18,4 +19,11 @@ export default class Salesman extends BaseEntity<Salesman> {
 
   @Column()
   whatsapp: boolean
+
+  @ManyToOne(
+    () => Provider,
+    (provider) => provider.salesman
+  )
+  @JoinColumn({ name: 'provider_id' })
+  provider?: Provider
 }
