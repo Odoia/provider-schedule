@@ -1,5 +1,5 @@
 import { Service } from 'typedi'
-import { FindManyOptions, FindConditions } from 'typeorm'
+import { FindManyOptions, FindConditions, DeleteResult } from 'typeorm'
 import { OrmRepository } from 'typeorm-typedi-extensions'
 
 import { Salesman } from '@/database/models'
@@ -20,5 +20,13 @@ export default class SalesmanService {
 
   public async findOne(options?: FindConditions<Salesman>): Promise<Salesman | undefined> {
     return this.repository.findOne(options)
+  }
+
+  public async update(criteria: FindConditions<Salesman>, salesman: Salesman) { 
+    return this.repository.update(criteria, salesman)
+  }
+
+  public async delete(id: number): Promise<DeleteResult | undefined> {
+    return this.repository.softDelete(id)
   }
 }

@@ -60,7 +60,7 @@ describe('/api/v1/salesman', () => {
         })
       })
 
-      describe('When need list one salesman by id -> GET /:id', () => {
+      describe('When need one salesman by id -> GET /:id', () => {
         it('should be show salesman and status 200', async () => {
           const post_result = await request(app)
           .post('/api/v1/salesmen')
@@ -80,7 +80,59 @@ describe('/api/v1/salesman', () => {
         })
       })
 
-      describe('When need update a salesman -> GET /:id', () => {})
+      describe('When need update a salesman -> PUT /:id', () => {
+        it('should be show a updated salesman and status 200', async () => {
+          const post_result = await request(app)
+          .post('/api/v1/salesmen')
+          .send({
+            salesman: {
+              name: 'salesman test',
+              email: `${Date.now()}@mail.com`,
+              phone: '123',
+              whatsapp: true
+            }
+          })
+
+          const put_result = await request(app)
+          .put(`/api/v1/salesmen/${post_result.body.id}`)
+          .send({
+            salesman: {
+              name: 'put name'
+            }
+          })
+
+          const result = await request(app)
+          .get(`/api/v1/salesmen/${post_result.body.id}`)
+
+          expect(result.status).toBe(200)
+          expect(result.body.phone).toBe(post_result.body.phone)
+          expect(result.body.name).toBe('put name')
+        })
+      })
+
+      describe('When need delete a salesman -> DELETE /:id', () => {
+        it(`should be status 200 and don't find this salesman` , async () => {
+          const post_result = await request(app)
+          .post('/api/v1/salesmen')
+          .send({
+            salesman: {
+              name: 'salesman test',
+              email: `${Date.now()}@mail.com`,
+              phone: '123',
+              whatsapp: true
+            }
+          })
+
+          const delete_result = await request(app)
+          .delete(`/api/v1/salesmen/${post_result.body.id}`)
+
+          const result = await request(app)
+          .get(`/api/v1/salesmen/${post_result.body.id}`)
+
+          expect(result.status).toBe(200)
+          expect(result.body).toBe('')
+        })
+      })
     })
 
     describe('When use a invalid salesman', () => {})

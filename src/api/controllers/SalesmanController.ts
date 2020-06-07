@@ -1,5 +1,5 @@
 import { Response } from 'express'
-import { JsonController, Post, Get, BodyParam, Res, Param } from 'routing-controllers'
+import { JsonController, Delete, Put, Post, Get, BodyParam, Res, Param } from 'routing-controllers'
 import { Container } from 'typedi'
 
 import { Salesman } from '@/database/models'
@@ -36,6 +36,37 @@ export default class SalesmanController {
     @Res() res: Response
   ) {
     const result = await this.service.findOne({ id })
+    if(!result){
+      return res.status(200).json('')  
+    }
+
+    return res.status(200).json(result)
+  }
+
+  @Put('/:id')
+  async update(
+    @Param('id') id: number,
+    @BodyParam('salesman') salesman: Salesman,
+    @Res() res: Response
+  ) {
+    const findSalesman = await this.service.findOne({ id })
+    if(!findSalesman){
+      return res.status(404)
+    }
+
+    const result = await this.service.update({ id }, salesman)
+    return res.status(200).json(result)
+  }
+
+  @Delete('/:id')
+  async delete(
+    @Param('id') id: number,
+    @Res() res: Response
+  ) {
+    const result = await this.service.delete(id)
+    if(!result){
+      return res.status(404)
+    }
     return res.status(200).json(result)
   }
 
